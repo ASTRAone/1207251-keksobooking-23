@@ -48,8 +48,6 @@ const fillingArrObj = (arr = []) => {
     return newArrOffer;
   };
 
-  for (let i = 0; i < 10; i++) {
-
     const author = {
       avatar: `img/avatars/user0${Math.floor(Math.random() * (9 - 1) + 1)}.png`,
     };
@@ -80,7 +78,6 @@ const fillingArrObj = (arr = []) => {
     };
 
     return obj;
-  };
 };
 
 const ARR = [];
