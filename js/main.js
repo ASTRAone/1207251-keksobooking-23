@@ -1,5 +1,6 @@
 // Рандомное число
 const randomNumber = (min, max) => {
+  
     if (min >= 0 && max >= 0) {
       const num = Math.floor(Math.random() * (max - min + 1) + min);
   
@@ -75,3 +76,5 @@ const fillingArrObj = (arr = []) => {
 };
 
 console.log(fillingArrObj());
+
+
