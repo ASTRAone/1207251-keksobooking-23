@@ -61,9 +61,9 @@ const fillingArrObj = (arr = []) => {
       guests: Math.floor(Math.random() * (50 - 10) + 10),
       checkin: '12:00',
       checkout: '13:00',
-      features: createArrOffer(OFFER_PHOTOS),
+      features: createArrOffer(OFFER_FEATURES),
       description: 'Придумайте самостоятельно',
-      photos: createArrOffer(OFFER_FEATURES),
+      photos: createArrOffer(OFFER_PHOTOS),
     };
 
     const location = {
