@@ -8,8 +8,16 @@ const OFFER_PHOTOS = [
   'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
 ];
 
+const OFFER_LOADGING = [
+  'flat',
+  'bungalow',
+  'house',
+  'palace',
+  'hotel',
+];
+
 // Рандомит массив со случайной длинной и случайными данными из переденного массива
-export const createArrOffer = (arr = []) => {
+const createArrOffer = (arr = []) => {
   const maxLenght = Math.floor(Math.random() * arr.length | 0);
   const newArrOffer = [];
 
@@ -37,7 +45,7 @@ export const fillingArrObj = (amountElements) => {
       title: 'Придумайте самостоятельно',
       address: '+26° 21′ 28.31″, +127° 47′ 1.62',
       price: Math.floor(Math.random() * (900 - 10) + 10),
-      type: 'hotel',
+      type: OFFER_LOADGING[Math.floor(Math.random() * OFFER_LOADGING.length)],
       rooms: Math.floor(Math.random() * (50 - 10) + 10),
       guests: Math.floor(Math.random() * (50 - 10) + 10),
       checkin: '12:00',
