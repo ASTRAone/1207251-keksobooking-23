@@ -1,22 +1,16 @@
-// Генерация features
-const renderFeatures = (features = [], card) => {
-    const ul = card.content.querySelector('.popup__features');
-
-    features.forEach((label) => {
-        const li = document.createElement('li');
-        li.innerHTML = label;
-        ul.appendChild(li)
-    });
-};
-
 // Генерация изображений
-const renderImages = (images) => {
-    const popupPhotos = card.content.querySelector('.popup__photos');
+const renderImages = (images, card) => {
+    const popupPhotos = card.querySelector('.popup__photos');
+    popupPhotos.innerHTML = '';
     
     images.forEach((src) => {
         const img = document.createElement('img');
         img.src = src;
-        img.alt = '';
+        img.alt = 'Фотография жилья';
+        img.classList.add('popup__photo');
+        img.style.width = '45px';
+        img.style.height = '40px';
+
         popupPhotos.appendChild(img);
     });
 };
@@ -30,13 +24,13 @@ const renderOfferType = (type) => {
         case 'palace' : return 'Дворец';
         case 'hotel' : return 'Отель';
 
-        default : return ''
+        default : return '';
     };
 };
 
 // Добавление определенных удобств
-let addFeatures = (features, card) => { 
-    const popupFeatures = card.content.querySelectorAll('.popup__feature');
+const addFeatures = (features, card) => { 
+    const popupFeatures = card.querySelectorAll('.popup__feature');
 
     popupFeatures.forEach((item) => {
         item.style.display = 'none'; 
@@ -48,29 +42,23 @@ let addFeatures = (features, card) => {
     });
 };
 
-export const announcementCard = (data = []) => {
+export const announcementCard = (obj = []) => {
     const card = document.querySelector('#card');
-
-    data.forEach((item) => {
-        const root = card.content.cloneNode(true);
-
-        card.content.querySelector('.popup__title').textContent = item.offer.title;
-        card.content.querySelector('.popup__text--address').textContent = item.offer.address;
-        card.content.querySelector('.popup__text--price').textContent = `${item.offer.price} ₽/ночь`;
-        card.content.querySelector('.popup__type').textContent = renderOfferType(item.offer.type);
-            'Значение не определено';
-        card.content.querySelector('.popup__text--capacity').textContent = 
-            `${item.offer.rooms} комнаты для ${item.offer.guests} гостей`;
-        card.content.querySelector('.popup__text--time').textContent = 
-            `Заезд после ${item.offer.checkin}, выезд до ${item.offer.checkout}`;
-        renderFeatures(item.offer.features, card);
-        card.content.querySelector('.popup__description').textContent = item.offer.description;
-        renderImages(item.offer.photos);
-        card.content.querySelector('.popup__avatar').src = item.author.avatar;
-
-        addFeatures(item.offer.features, card)
-        card.append(root);
-    });
+    const root = card.content.cloneNode(true);
+    
+    root.querySelector('.popup__title').textContent = obj.offer.title;
+    root.querySelector('.popup__text--address').textContent = obj.offer.address;
+    root.querySelector('.popup__text--price').textContent = `${obj.offer.price} ₽/ночь`;
+    root.querySelector('.popup__type').textContent = renderOfferType(obj.offer.type);
+        'Значение не определено';
+    root.querySelector('.popup__text--capacity').textContent = 
+        `${obj.offer.rooms} комнаты для ${obj.offer.guests} гостей`;
+    root.querySelector('.popup__text--time').textContent = 
+        `Заезд после ${obj.offer.checkin}, выезд до ${obj.offer.checkout}`;
+    root.querySelector('.popup__description').textContent = obj.offer.description;
+    renderImages(obj.offer.photos, root);
+    root.querySelector('.popup__avatar').src = obj.author.avatar;
+    addFeatures(obj.offer.features, root);
+    
+    return root;
 };
-
-
