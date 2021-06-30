@@ -42,7 +42,7 @@ const addFeatures = (features, card) => {
     });
 };
 
-export const announcementCard = (obj = []) => {
+export const renderCard = (obj = []) => {
     const card = document.querySelector('#card');
     const root = card.content.cloneNode(true);
     
