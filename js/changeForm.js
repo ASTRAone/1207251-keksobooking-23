@@ -24,4 +24,4 @@ export const transferActivePage = () => {
     document.querySelectorAll('.map__filters select').forEach((item) => {
         item.removeAttribute('disabled');
     });
-}
+};
