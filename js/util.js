@@ -17,4 +17,3 @@ export const randomFloatNumber = (min, max, point = 6) => {
   }
   return 0;
 };
-
