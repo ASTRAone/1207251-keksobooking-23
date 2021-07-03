@@ -18,6 +18,3 @@ export const randomFloatNumber = (min, max, point = 6) => {
   return 0;
 };
 
-document.getElementById('room_number').addEventListener('click', (e) => {
-  console.log(e.target.value);
-});
