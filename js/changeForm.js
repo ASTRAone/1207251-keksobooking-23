@@ -34,12 +34,12 @@ const ROOMS_CAPACITY = {
 };
 
 const MIN_PRICES = {
-    bungalow: 0,
-    flat: 1000,
-    hotel: 3000,
-    house: 5000,
-    palace: 10000,
-  };
+  bungalow: 0,
+  flat: 1000,
+  hotel: 3000,
+  house: 5000,
+  palace: 10000,
+};
 
 // Выбор жилья
 document.getElementById("room_number").addEventListener("click", (evt) => {
