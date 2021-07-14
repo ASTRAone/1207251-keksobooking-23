@@ -43,8 +43,8 @@ const addFeatures = (features, card) => {
 };
 
 export const renderCard = (obj = []) => {
-    const card = document.querySelector('#card');
-    const root = card.content.cloneNode(true);
+    const card = document.querySelector('#card').content.querySelector('.popup');
+    const root = card.cloneNode(true);
     
     root.querySelector('.popup__title').textContent = obj.offer.title;
     root.querySelector('.popup__text--address').textContent = obj.offer.address;
