@@ -1,6 +1,5 @@
-
-const successAd = document.querySelector('#success').querySelector('.success');
-const rejectAd = document.querySelector('#error').querySelector('.error');
+const successAd = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+const rejectAd = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
 
 document.querySelector('.ad-form__submit').addEventListener('click', (e) => {
     e.preventDefault();
