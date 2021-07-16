@@ -4,6 +4,7 @@ import { randomNumber, randomFloatNumber } from './util.js';
 import { fillingArrObj } from './data.js';
 import { renderCard } from './renderCard.js';
 import { transferInactivePage, transferActivePage } from './changeForm.js'
+import './actionsForm.js';
 
 console.log('Рандомное число ', randomNumber(20, 100));
 console.log('Рандомное число с плавающей точкой ', randomFloatNumber(1.3, 1.67, 5));
@@ -11,8 +12,8 @@ console.log('Рандомное число с плавающей точкой ',
 const arrObjTest = fillingArrObj(5);
 const mapCanvas = document.querySelector('#map-canvas');
 
-mapCanvas.append(renderCard(arrObjTest[0]));
-transferInactivePage();
-setTimeout(() => {
-    transferActivePage()
-}, 3000)
+// mapCanvas.append(renderCard(arrObjTest[0]));
+// transferInactivePage();
+// setTimeout(() => {
+//     transferActivePage()
+// }, 3000)
