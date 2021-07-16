@@ -1,5 +1,14 @@
-const successAd = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-const rejectAd = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+const successAction = () => {
+    const successAd = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+
+    return successAd;
+};
+
+const rejectAction = () => {
+    const rejectAd = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+
+    return rejectAd;
+};
 
 document.querySelector('.ad-form__submit').addEventListener('click', (e) => {
     e.preventDefault();
@@ -22,9 +31,12 @@ document.querySelector('.ad-form__submit').addEventListener('click', (e) => {
                     .json()
                     .then((data) => {
                         console.log('Успех', data)
+                        successAction();
+                        console.log(successAction())
                     })
             } else {
-                console.log('ошибка')
+                console.log('ошибка');
+                rejectAction();
             }
-        })  
+        }); 
 });
