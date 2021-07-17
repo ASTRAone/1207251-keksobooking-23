@@ -72,7 +72,8 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
 
     document.querySelector('#address').value = `${x}, ${y}`;
 
-    // Возвращение метки
+    // Возвращение метки на первоначальное место
+    // const marker = document.querySelector('.leaflet-marker-draggable');
 
     // Убираем выделение features
     document.querySelectorAll('.features__checkbox').forEach((item) => {
