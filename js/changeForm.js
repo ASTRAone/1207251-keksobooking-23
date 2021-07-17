@@ -39,7 +39,7 @@ document.querySelector("#type").addEventListener("change", (e) => {
   const minPrice = MIN_PRICES[e.target.value];
 
   price.setAttribute("placeholder", minPrice);
-  price.setAttribute("max", minPrice);
+  price.setAttribute("min", minPrice);
 });
 
 // Смена времени выезда

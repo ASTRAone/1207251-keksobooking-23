@@ -9,4 +9,4 @@ import './actionsForm.js';
 console.log('Рандомное число ', randomNumber(20, 100));
 console.log('Рандомное число с плавающей точкой ', randomFloatNumber(1.3, 1.67, 5));
 
-mapsChanges(fillingArrObj(5));
+mapsChanges(fillingArrObj(5), 35.68304, 139.72364);

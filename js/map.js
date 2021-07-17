@@ -88,12 +88,12 @@ const createPoints = (map, arr) => {
 };
 
 // Работа с картой
-export const mapsChanges = (points) => {
+export const mapsChanges = (points, x, y) => {
   // Изначально делаем форму неактивной
   transferInactivePage();
 
-  const x = 35.68304;
-  const y = 139.72364;
+  localStorage.setItem('x', x);
+  localStorage.setItem('y', y);
 
   const map = L.map("map-canvas")
     // Если загрузилась карта, то форама становится активной

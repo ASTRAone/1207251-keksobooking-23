@@ -1,42 +1,82 @@
+// Если все прошло успешно
 const successAction = () => {
     const successAd = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+    const body = document.body;
 
-    return successAd;
+    body.appendChild(successAd);
+
+    body.addEventListener('click', (e) => {
+        if (e.target.id !== successAd && body.contains(successAd)) {
+            body.removeChild(successAd);
+        }
+    });
+
+    body.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && body.contains(successAd)) {
+            body.removeChild(successAd);
+        }
+    });
 };
 
+// Если произошла ошибка
 const rejectAction = () => {
     const rejectAd = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+    const body = document.body;
 
-    return rejectAd;
+    body.appendChild(rejectAd);
+
+    body.addEventListener('click', (e) => {
+        if (e.target.id !== rejectAd && body.contains(rejectAd)) {
+            body.removeChild(rejectAd);
+        }
+    });
+
+    body.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && body.contains(rejectAd)) {
+            body.removeChild(rejectAd);
+        }
+    });
 };
 
-document.querySelector('.ad-form__submit').addEventListener('click', (e) => {
+// Отправка формы
+document.querySelector('.ad-form').addEventListener('submit', (e) => {
     e.preventDefault();
-
-    const data = document.querySelector('.ad-form');
-    const dataName = new FormData(data);
     
+    const form = document.querySelector('.ad-form');
+    const formData = new FormData(form);
+        
     fetch(
-        'https://jsonplaceholder.typicode.com/posts',
+        'https://jsonplaceholder.typicode.com/posts/1',
         {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(dataName),
+            body: JSON.stringify(formData),
         })
         .then((response) => {
             if (response.ok) {
                 response
                     .json()
                     .then((data) => {
-                        console.log('Успех', data)
                         successAction();
-                        console.log(successAction())
                     })
             } else {
-                console.log('ошибка');
-                rejectAction();
-            }
-        }); 
+            rejectAction();
+        }
+    }); 
 });
+
+// Сброс формы
+document.querySelector('.ad-form__reset').addEventListener('click', () => {
+    // Возвращение координат
+    const x = localStorage.getItem('x');
+    const y = localStorage.getItem('y');
+
+    document.querySelector('#address').value = `${x}, ${y}`;
+
+    // Возвращение метки
+
+    // Убираем выделение features
+    document.querySelectorAll('.features__checkbox').forEach((item) => {
+        item.checked = false
+    });
+});
+
