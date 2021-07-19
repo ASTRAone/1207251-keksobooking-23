@@ -1,3 +1,5 @@
+import { refresh } from './map.js';
+
 // Если все прошло успешно
 const successAction = () => {
     const successAd = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
@@ -73,7 +75,7 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
     document.querySelector('#address').value = `${x}, ${y}`;
 
     // Возвращение метки на первоначальное место
-    // const marker = document.querySelector('.leaflet-marker-draggable');
+    refresh();
 
     // Убираем выделение features
     document.querySelectorAll('.features__checkbox').forEach((item) => {

@@ -59,6 +59,15 @@ const createChapterPoint = (map, x, y) => {
   });
 };
 
+export const refresh = (marker, x, y) => {
+  marker.setLatLng([x, y])
+
+  // var lat = (e.latlng.lat);
+  // var lng = (e.latlng.lng);
+  // var newLatLng = new L.LatLng(lat, lng);
+  // marker.setLatLng(newLatLng); 
+};
+
 // Создание меток с объявлениями
 const createPoints = (map, arr) => {
   arr.forEach((item) => {
