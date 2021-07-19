@@ -73,7 +73,7 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
     const y = localStorage.getItem('y');
 
     document.querySelector('#address').value = `${x}, ${y}`;
-
+    
     // Возвращение метки на первоначальное место
     refresh();
 

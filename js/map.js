@@ -30,24 +30,29 @@ const transferActivePage = () => {
   });
 };
 
-// Создание главной метки
-const createChapterPoint = (map, x, y) => {
-  const icon = L.icon({
-    iconUrl: "../img/main-pin.svg",
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
+// Первоначальное положение главной метки
+const icon = L.icon({
+  iconUrl: "../img/main-pin.svg",
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
-  const marker = L.marker(
-    {
-      lat: x,
-      lng: y,
-    },
-    {
-      draggable: true,
-      icon,
-    }
-  );
+const LAT = 35.681700;
+const LNG = 139.75388;
+
+const marker = L.marker(
+  {
+    lat: LAT,
+    lng: LNG,
+  },
+  {
+    draggable: true,
+    icon,
+  }
+);
+
+// Создание главной метки
+const createChapterPoint = (map) => {
 
   marker.addTo(map);
 
@@ -59,13 +64,8 @@ const createChapterPoint = (map, x, y) => {
   });
 };
 
-export const refresh = (marker, x, y) => {
-  marker.setLatLng([x, y])
-
-  // var lat = (e.latlng.lat);
-  // var lng = (e.latlng.lng);
-  // var newLatLng = new L.LatLng(lat, lng);
-  // marker.setLatLng(newLatLng); 
+export const refresh = () => {
+  marker.setLatLng([LAT, LNG])
 };
 
 // Создание меток с объявлениями
