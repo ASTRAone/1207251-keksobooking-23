@@ -70,36 +70,42 @@ export const refresh = () => {
 
 // Создание меток с объявлениями
 const createPoints = (map, arr) => {
-  arr.forEach((item) => {
-    const x = item.location.lat;
-    const y = item.location.lng;
-
-    const icon = L.icon({
-      iconUrl: "../img/pin.svg",
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+  if (Array.isArray(arr)) {
+    arr.forEach((item) => {
+      const x = item.location.lat;
+      const y = item.location.lng;
+  
+      const icon = L.icon({
+        iconUrl: "../img/pin.svg",
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
+  
+      const marker = L.marker(
+        {
+          lat: x,
+          lng: y,
+        },
+        {
+          icon,
+        }
+      );
+  
+      marker.addTo(map).bindPopup(renderCard(item), {
+        keepInView: true,
+      });
     });
-
-    const marker = L.marker(
-      {
-        lat: x,
-        lng: y,
-      },
-      {
-        icon,
-      }
-    );
-
-    marker.addTo(map).bindPopup(renderCard(item), {
-      keepInView: true,
-    });
-  });
+  }
+  
 };
 
 // Работа с картой
-export const mapsChanges = (points, x, y) => {
+export const mapsChanges = (points) => {
   // Изначально делаем форму неактивной
   transferInactivePage();
+
+  const x = 35.68304;
+  const y = 139.72364;
 
   localStorage.setItem('x', x);
   localStorage.setItem('y', y);
