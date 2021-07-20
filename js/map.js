@@ -30,24 +30,29 @@ const transferActivePage = () => {
   });
 };
 
-// Создание главной метки
-const createChapterPoint = (map, x, y) => {
-  const icon = L.icon({
-    iconUrl: "../img/main-pin.svg",
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
+// Первоначальное положение главной метки
+const icon = L.icon({
+  iconUrl: "../img/main-pin.svg",
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
-  const marker = L.marker(
-    {
-      lat: x,
-      lng: y,
-    },
-    {
-      draggable: true,
-      icon,
-    }
-  );
+const LAT = 35.681700;
+const LNG = 139.75388;
+
+const marker = L.marker(
+  {
+    lat: LAT,
+    lng: LNG,
+  },
+  {
+    draggable: true,
+    icon,
+  }
+);
+
+// Создание главной метки
+const createChapterPoint = (map) => {
 
   marker.addTo(map);
 
@@ -59,32 +64,39 @@ const createChapterPoint = (map, x, y) => {
   });
 };
 
+export const refresh = () => {
+  marker.setLatLng([LAT, LNG])
+};
+
 // Создание меток с объявлениями
 const createPoints = (map, arr) => {
-  arr.forEach((item) => {
-    const x = item.location.lat;
-    const y = item.location.lng;
-
-    const icon = L.icon({
-      iconUrl: "../img/pin.svg",
-      iconSize: [40, 40],
-      iconAnchor: [20, 40],
+  if (Array.isArray(arr)) {
+    arr.forEach((item) => {
+      const x = item.location.lat;
+      const y = item.location.lng;
+  
+      const icon = L.icon({
+        iconUrl: "../img/pin.svg",
+        iconSize: [40, 40],
+        iconAnchor: [20, 40],
+      });
+  
+      const marker = L.marker(
+        {
+          lat: x,
+          lng: y,
+        },
+        {
+          icon,
+        }
+      );
+  
+      marker.addTo(map).bindPopup(renderCard(item), {
+        keepInView: true,
+      });
     });
-
-    const marker = L.marker(
-      {
-        lat: x,
-        lng: y,
-      },
-      {
-        icon,
-      }
-    );
-
-    marker.addTo(map).bindPopup(renderCard(item), {
-      keepInView: true,
-    });
-  });
+  }
+  
 };
 
 // Работа с картой
@@ -94,6 +106,9 @@ export const mapsChanges = (points) => {
 
   const x = 35.68304;
   const y = 139.72364;
+
+  localStorage.setItem('x', x);
+  localStorage.setItem('y', y);
 
   const map = L.map("map-canvas")
     // Если загрузилась карта, то форама становится активной

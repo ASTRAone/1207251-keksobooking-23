@@ -1,7 +1,3 @@
-import { renderCard } from "./renderCard.js";
-
-
-
 const ROOMS_CAPACITY = {
   1: [1],
   2: [2, 1],
@@ -43,7 +39,7 @@ document.querySelector("#type").addEventListener("change", (e) => {
   const minPrice = MIN_PRICES[e.target.value];
 
   price.setAttribute("placeholder", minPrice);
-  price.setAttribute("max", minPrice);
+  price.setAttribute("min", minPrice);
 });
 
 // Смена времени выезда
