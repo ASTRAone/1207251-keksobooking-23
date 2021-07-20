@@ -48,7 +48,7 @@ document.querySelector('.ad-form').addEventListener('submit', (e) => {
     const formData = new FormData(form);
         
     fetch(
-        'https://jsonplaceholder.typicode.com/posts/1',
+        'https://jsonplaceholder.typicode.com/posts/',
         {
             method: 'POST',
             body: JSON.stringify(formData),
