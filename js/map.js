@@ -96,7 +96,6 @@ const createPoints = (map, arr) => {
       });
     });
   }
-  
 };
 
 // Работа с картой

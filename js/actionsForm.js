@@ -48,26 +48,30 @@ document.querySelector('.ad-form').addEventListener('submit', (e) => {
     const formData = new FormData(form);
         
     fetch(
-        'https://jsonplaceholder.typicode.com/posts/',
+        'https://23.javascript.pages.academy/keksobooking',
         {
             method: 'POST',
-            body: JSON.stringify(formData),
+            body: formData,
         })
         .then((response) => {
             if (response.ok) {
                 response
                     .json()
                     .then((data) => {
+                        console.log(data)
                         successAction();
                     })
             } else {
-            rejectAction();
+                console.log(response)
+                rejectAction();
         }
     }); 
 });
 
 // Сброс формы
 document.querySelector('.ad-form__reset').addEventListener('click', () => {
+    const form = document.querySelector('.ad-form');
+    form.reset()
     // Возвращение координат
     const x = localStorage.getItem('x');
     const y = localStorage.getItem('y');
