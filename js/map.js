@@ -96,39 +96,156 @@ const createPoints = (map, arr) => {
       });
     });
   }
-  
 };
+
+// Стейт данных
+let stateArray = [];
+let newArr = [];
 
 // Работа с картой
 export const mapsChanges = (points) => {
+  stateArray = points;
+  newArr = points;
   // Изначально делаем форму неактивной
-  transferInactivePage();
 
+  createChapterPoint(map, x, y);
+  createPoints(map, stateArray);
+};
+
+
+// =========================================================================================================
   const x = 35.68304;
   const y = 139.72364;
+
+  transferInactivePage();
+  const map = L.map("map-canvas")
+  // Если загрузилась карта, то форама становится активной
+  .on("load", () => {
+    transferActivePage();
+    document.querySelector("#address").value = `${x}, ${y}`;
+  })
+  .setView(
+    {
+      lat: x,
+      lng: y,
+    },
+    10
+  );
 
   localStorage.setItem('x', x);
   localStorage.setItem('y', y);
 
-  const map = L.map("map-canvas")
-    // Если загрузилась карта, то форама становится активной
-    .on("load", () => {
-      transferActivePage();
-      document.querySelector("#address").value = `${x}, ${y}`;
-    })
-    .setView(
-      {
-        lat: x,
-        lng: y,
-      },
-      10
-    );
-
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-    attribution:
-      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-  createChapterPoint(map, x, y);
-  createPoints(map, points);
+
+
+  // =======================================================================================================
+
+// Активная/неактивная форма
+export const changeFilterMap = (state) => {
+  const form = document.querySelector('.map__filters');
+  const selects = document.querySelectorAll('.map__filter');
+  const features = document.querySelectorAll('.map__checkbox');
+
+  if (state === false) {
+      selects.forEach((item) => {
+          item.disabled = true;
+      });
+
+      features.forEach((item) => {
+          item.disabled = true;
+      });
+  } else {
+      selects.forEach((item) => {
+          item.disabled = false;
+      });
+
+      features.forEach((item) => {
+          item.disabled = false;
+      });
+
+      form.reset();
+  }
 };
+
+// Изменения фильтра карты
+const filterMap = (stateArray) => {
+  let features = [];
+  let filterData = stateArray;
+
+  const LOW_PRICE = 10000;
+  const HIGH_PRICE = 50000;
+
+  const houseType = document.querySelector('#housing-type');
+  const housePrice = document.querySelector('#housing-price');
+  const houseRooms = document.querySelector('#housing-rooms');
+  const houseGuests = document.querySelector('#housing-guests');
+
+  // Получаем удобства
+  document.querySelectorAll('.map__checkbox:checked').forEach((item) => {
+    features.push(item.value);
+  });
+
+  // Фильтрация по типу жилья
+  if (houseType.value !== 'any') {
+    filterData = filterData.filter((item) => {
+      return item.offer.type === houseType.value;
+    });
+  }
+
+  // Фильтрация по цене
+  if (housePrice.value !== 'any') {
+    filterData = filterData.filter((item) => {
+      let price = 'middle';
+
+      if (item.offer.price < LOW_PRICE) {
+        price = 'low';
+      }
+
+      else if (item.offer.price > HIGH_PRICE) {
+        price = 'high';
+      }
+
+      return price === housePrice.value;
+    });
+  }
+
+  // Фильтрация по количеству комнат
+  if (houseRooms.value !== 'any') {
+    filterData = filterData.filter((item) => {
+      return item.offer.rooms === houseRooms.value;
+    });
+  }
+
+  // Фильтрация по количеству гостей
+  if (houseGuests.value !== 'any') {
+    filterData = filterData.filter((item) => {
+      return item.offer.guests === houseGuests.value;
+    });
+  }
+
+  // Фильтрация по удобствам
+  if (features.length !== 0) {
+    features.forEach((feature) => {
+      filterData = filterData.filter((item) => {
+        return item.offer.features.includes(feature);
+      })
+    });
+  }
+
+  console.log(filterData);
+
+  if (houseType.value === 'any' && housePrice.value === 'any' && 
+      houseRooms.value === 'any' && houseGuests.value === 'any') {
+    return stateArray;
+  }
+  return filterData;
+};
+
+document.querySelector('.map__filters').addEventListener('change', (e) => {
+  mapsChanges(filterMap(newArr));
+});
+

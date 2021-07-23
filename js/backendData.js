@@ -1,8 +1,9 @@
-import { mapsChanges } from './map.js';
+import { changeFilterMap, mapsChanges } from './map.js';
 
 const renderData = (data) => {
     mapsChanges(data);
-}
+    changeFilterMap(true);
+};
 
 const renderDataFailed = (status) => {
     const rejectDataFailed = document.querySelector('#error-data').content.querySelector('.error-data').cloneNode(true);
@@ -25,7 +26,8 @@ const renderDataFailed = (status) => {
         }
     });
 
-    mapsChanges();
+    // mapsChanges();
+    changeFilterMap(false);
 };
 
 export const dataActionsPost = () => {
@@ -36,7 +38,8 @@ export const dataActionsPost = () => {
                 resolve
                     .json()
                     .then((resolve) => {
-                        renderData(resolve)
+                        const values = resolve.length <= 10 ? resolve : resolve.splice(0, 10);
+                        renderData(values)
                     })
             } else {
                 renderDataFailed(resolve.status);

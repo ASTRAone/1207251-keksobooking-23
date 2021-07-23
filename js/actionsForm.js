@@ -68,6 +68,10 @@ document.querySelector('.ad-form').addEventListener('submit', (e) => {
 
 // Сброс формы
 document.querySelector('.ad-form__reset').addEventListener('click', () => {
+    // Сброс формы
+    const form = document.querySelector('.ad-form');
+    form.reset();
+    
     // Возвращение координат
     const x = localStorage.getItem('x');
     const y = localStorage.getItem('y');
