@@ -64,20 +64,6 @@ const createChapterPoint = (map) => {
   });
 };
 
-// Возращает главную метку на первоначальную позицию
-export const refreshPoint = () => {
-  marker.setLatLng([LAT, LNG])
-};
-
-// Возращает карту на первоначальную позицию
-export const refreshMap = () => {
-  map.setView({
-    lat: x,
-    lng: y,
-  },
-  10)
-};
-
 // Создание меток с объявлениями
 const createPoints = (filter = false, arr) => {
   if (Array.isArray(arr)) {
@@ -119,37 +105,51 @@ let stateArray = [];
 export const mapsChanges = (points) => {
   stateArray = points;
 
-  createChapterPoint(map, x, y);
+  createChapterPoint(map, LAT, LNG);
   createPoints(false, stateArray);
 };
 
-  const x = 35.68304;
-  const y = 139.72364;
+// const x = 35.68304;
+// const y = 139.72364;
 
-  transferInactivePage();
-  const map = L.map("map-canvas")
-  // Если загрузилась карта, то форама становится активной
-  .on("load", () => {
-    transferActivePage();
-    document.querySelector("#address").value = `${x}, ${y}`;
-  })
-  .setView(
-    {
-      lat: x,
-      lng: y,
-    },
-    10
-  );
+transferInactivePage();
+const map = L.map("map-canvas")
+// Если загрузилась карта, то форама становится активной
+.on("load", () => {
+  transferActivePage();
+  document.querySelector("#address").value = `${LAT}, ${LNG}`;
+})
+.setView(
+  {
+    lat: LAT,
+    lng: LNG,
+  },
+  10
+);
 
-  localStorage.setItem('x', x);
-  localStorage.setItem('y', y);
+localStorage.setItem('x', LAT);
+localStorage.setItem('y', LNG);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+attribution:
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(map);
 
-  const markerGroup = L.layerGroup().addTo(map);
+const markerGroup = L.layerGroup().addTo(map);
+
+// Возращает главную метку на первоначальную позицию
+export const refreshPoint = () => {
+  marker.setLatLng([LAT, LNG])
+};
+
+// Возращает карту на первоначальную позицию
+export const refreshMap = () => {
+  map.setView({
+    lat: LAT,
+    lng: LNG,
+  },
+  10)
+};
 
 // Активная/неактивная форма
 export const changeFilterMap = (state) => {
@@ -243,11 +243,10 @@ const filterMap = (arr) => {
     });
   }
 
-  console.log('Отфильтрованный массив', filterData);
-
   return filterData;
 };
 
+// Слушаем изменение формы
 document.querySelector('.map__filters').addEventListener('change', (e) => {
   createPoints(true, (filterMap(stateArray)));
 });
