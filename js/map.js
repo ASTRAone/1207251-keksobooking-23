@@ -64,13 +64,27 @@ const createChapterPoint = (map) => {
   });
 };
 
-export const refresh = () => {
+// Возращает главную метку на первоначальную позицию
+export const refreshPoint = () => {
   marker.setLatLng([LAT, LNG])
 };
 
+// Возращает карту на первоначальную позицию
+export const refreshMap = () => {
+  map.setView({
+    lat: x,
+    lng: y,
+  },
+  10)
+};
+
 // Создание меток с объявлениями
-const createPoints = (map, arr) => {
+const createPoints = (filter = false, arr) => {
   if (Array.isArray(arr)) {
+    if (filter) {
+      markerGroup.clearLayers();
+    }
+
     arr.forEach((item) => {
       const x = item.location.lat;
       const y = item.location.lng;
@@ -91,7 +105,7 @@ const createPoints = (map, arr) => {
         }
       );
   
-      marker.addTo(map).bindPopup(renderCard(item), {
+      marker.addTo(markerGroup).bindPopup(renderCard(item), {
         keepInView: true,
       });
     });
@@ -100,20 +114,15 @@ const createPoints = (map, arr) => {
 
 // Стейт данных
 let stateArray = [];
-let newArr = [];
 
 // Работа с картой
 export const mapsChanges = (points) => {
   stateArray = points;
-  newArr = points;
-  // Изначально делаем форму неактивной
 
   createChapterPoint(map, x, y);
-  createPoints(map, stateArray);
+  createPoints(false, stateArray);
 };
 
-
-// =========================================================================================================
   const x = 35.68304;
   const y = 139.72364;
 
@@ -140,9 +149,7 @@ export const mapsChanges = (points) => {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
   }).addTo(map);
 
-
-
-  // =======================================================================================================
+  const markerGroup = L.layerGroup().addTo(map);
 
 // Активная/неактивная форма
 export const changeFilterMap = (state) => {
@@ -172,9 +179,9 @@ export const changeFilterMap = (state) => {
 };
 
 // Изменения фильтра карты
-const filterMap = (stateArray) => {
+const filterMap = (arr) => {
   let features = [];
-  let filterData = stateArray;
+  let filterData = arr.slice();
 
   const LOW_PRICE = 10000;
   const HIGH_PRICE = 50000;
@@ -236,16 +243,11 @@ const filterMap = (stateArray) => {
     });
   }
 
-  console.log(filterData);
+  console.log('Отфильтрованный массив', filterData);
 
-  if (houseType.value === 'any' && housePrice.value === 'any' && 
-      houseRooms.value === 'any' && houseGuests.value === 'any') {
-    return stateArray;
-  }
   return filterData;
 };
 
 document.querySelector('.map__filters').addEventListener('change', (e) => {
-  mapsChanges(filterMap(newArr));
+  createPoints(true, (filterMap(stateArray)));
 });
-
