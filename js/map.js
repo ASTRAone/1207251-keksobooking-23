@@ -72,8 +72,8 @@ export const refreshPoint = () => {
 // Возращает карту на первоначальную позицию
 export const refreshMap = () => {
   map.setView({
-    lat: x,
-    lng: y,
+    lat: LAT,
+    lng: LNG,
   },
   10)
 };
@@ -119,30 +119,27 @@ let stateArray = [];
 export const mapsChanges = (points) => {
   stateArray = points;
 
-  createChapterPoint(map, x, y);
+  createChapterPoint(map, LAT, LNG);
   createPoints(false, stateArray);
 };
-
-  const x = 35.68304;
-  const y = 139.72364;
 
   transferInactivePage();
   const map = L.map("map-canvas")
   // Если загрузилась карта, то форама становится активной
   .on("load", () => {
     transferActivePage();
-    document.querySelector("#address").value = `${x}, ${y}`;
+    document.querySelector("#address").value = `${LAT}, ${LNG}`;
   })
   .setView(
     {
-      lat: x,
-      lng: y,
+      lat: LAT,
+      lng: LNG,
     },
     10
   );
 
-  localStorage.setItem('x', x);
-  localStorage.setItem('y', y);
+  localStorage.setItem('x', LAT);
+  localStorage.setItem('y', LNG);
 
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
