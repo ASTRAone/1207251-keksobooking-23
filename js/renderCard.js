@@ -59,8 +59,6 @@ export const renderCard = (obj = []) => {
     renderImages(obj.offer.photos, root);
     root.querySelector('.popup__avatar').src = obj.author.avatar;
     addFeatures(obj.offer.features, root);
-
-    console.log(obj)
     
     return root;
 };

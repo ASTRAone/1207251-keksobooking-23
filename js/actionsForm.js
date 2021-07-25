@@ -1,4 +1,4 @@
-import { refresh } from './map.js';
+import { refreshPoint, refreshMap } from './map.js';
 
 // Если все прошло успешно
 const successAction = () => {
@@ -68,6 +68,10 @@ document.querySelector('.ad-form').addEventListener('submit', (e) => {
 
 // Сброс формы
 document.querySelector('.ad-form__reset').addEventListener('click', () => {
+    // Сброс формы
+    const form = document.querySelector('.ad-form');
+    form.reset();
+    
     // Возвращение координат
     const x = localStorage.getItem('x');
     const y = localStorage.getItem('y');
@@ -75,7 +79,10 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
     document.querySelector('#address').value = `${x}, ${y}`;
     
     // Возвращение метки на первоначальное место
-    refresh();
+    refreshPoint();
+
+    // Возврщает масштаб карты
+    refreshMap();
 
     // Убираем выделение features
     document.querySelectorAll('.features__checkbox').forEach((item) => {
