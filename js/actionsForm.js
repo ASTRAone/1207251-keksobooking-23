@@ -46,6 +46,8 @@ document.querySelector('.ad-form').addEventListener('submit', (e) => {
     
     const form = document.querySelector('.ad-form');
     const formData = new FormData(form);
+
+    console.log(document.querySelector('.ad-form-header__input').value)
         
     fetch(
         'https://jsonplaceholder.typicode.com/posts/',
@@ -66,9 +68,39 @@ document.querySelector('.ad-form').addEventListener('submit', (e) => {
     }); 
 });
 
+// Загрузка аватарки
+document.querySelector('#avatar').addEventListener('change', (e) => {
+    const preview = document.querySelector('.ad-form-header__preview_avatar');
+    const file    = document.querySelector('#avatar').files[0];
+    const reader  = new FileReader();
+
+    reader.onloadend = () => {
+        preview.src = reader.result;
+    };
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } 
+});
+
+// Загрузка изображения жилья
+document.querySelector('#images').addEventListener('change', (e) => {
+    const preview = document.querySelector('.ad-form__photo');
+    const file    = document.querySelector('#images').files[0];
+    const reader  = new FileReader();
+    
+    reader.onloadend = () => {
+        preview.style.backgroundImage = `url(${reader.result})`;
+    };
+
+    if (file) {
+        reader.readAsDataURL(file);
+    } 
+});
+
 // Сброс формы
 document.querySelector('.ad-form__reset').addEventListener('click', () => {
-    // Сброс формы
+    // Сброс формы объявления
     const form = document.querySelector('.ad-form');
     form.reset();
     
@@ -88,5 +120,13 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
     document.querySelectorAll('.features__checkbox').forEach((item) => {
         item.checked = false
     });
-});
 
+    // Сброс фильтра карты
+    const filterForm = document.querySelector('.map__filters');
+    filterForm.reset();
+
+    // Убираем выделение features у фильтра
+    document.querySelectorAll('.map__checkbox').forEach((item) => {
+        item.checked = false;
+    });
+});
