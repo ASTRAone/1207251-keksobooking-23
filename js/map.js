@@ -1,5 +1,3 @@
-
-
 import { renderCard } from './renderCard.js';
 import { filterMap } from './filterMap.js';
 
@@ -9,6 +7,11 @@ const LNG = 139.75388;
 
 // Стейт данных
 let stateArray = [];
+
+const MAP = L.map('map-canvas');
+let icon = '';
+
+const markerGroup = L.layerGroup().addTo(MAP);
 
 // неактивная страница
 const transferInactivePage = () => {
@@ -41,7 +44,7 @@ const transferActivePage = () => {
 };
 
 // Первоначальное положение главной метки
-const icon = L.icon({
+icon = L.icon({
   iconUrl: '../img/main-pin.svg',
   iconSize: [52, 52],
   iconAnchor: [26, 52],
@@ -60,7 +63,6 @@ const MARKER = L.marker(
 
 // Создание главной метки
 const createChapterPoint = (map) => {
-
   MARKER.addTo(map);
 
   MARKER.on('moveend', (evt) => {
@@ -83,23 +85,26 @@ const createPoints = (filter = false, arr) => {
       markerGroup.clearLayers();
     }
 
+    let marker;
+    let iconPoint;
+
     arr.forEach((item) => {
       const lat = item.location.lat;
       const lng = item.location.lng;
 
-      const icon = L.icon({
+      iconPoint = L.icon({
         iconUrl: '../img/pin.svg',
         iconSize: [40, 40],
         iconAnchor: [20, 40],
       });
 
-      const marker = L.marker(
+      marker = L.marker(
         {
           lat: lat,
           lng: lng,
         },
         {
-          icon,
+          icon: iconPoint,
         },
       );
 
@@ -111,12 +116,11 @@ const createPoints = (filter = false, arr) => {
 };
 
 transferInactivePage();
-const MAP = L.map('map-canvas')
 // Если загрузилась карта, то форама становится активной
-  .on('load', () => {
-    transferActivePage();
-    document.querySelector('#address').value = `${LAT}, ${LNG}`;
-  })
+MAP.on('load', () => {
+  transferActivePage();
+  document.querySelector('#address').value = `${LAT}, ${LNG}`;
+})
   .setView(
     {
       lat: LAT,
@@ -132,9 +136,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
   attribution:
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 }).addTo(MAP);
-
-// Второй слой для отрисовки points
-const markerGroup = L.layerGroup().addTo(MAP);
 
 // Работа с картой
 export const mapsChanges = (points) => {

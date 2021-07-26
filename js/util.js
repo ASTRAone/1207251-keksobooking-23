@@ -19,5 +19,4 @@ const randomFloatNumber = (min, max, point = 6) => {
 };
 
 randomNumber(2, 10);
-
 randomFloatNumber(1, 100, 2);

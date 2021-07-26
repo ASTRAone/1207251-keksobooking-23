@@ -1,3 +1,6 @@
+const LOW_PRICE = 10000;
+const HIGH_PRICE = 50000;
+
 // Активная/неактивная форма
 export const changeFilterMap = (state) => {
   const form = document.querySelector('.map__filters');
@@ -29,9 +32,6 @@ export const changeFilterMap = (state) => {
 export const filterMap = (arr) => {
   const features = [];
   let filterData = arr.slice();
-
-  const LOW_PRICE = 10000;
-  const HIGH_PRICE = 50000;
 
   const houseType = document.querySelector('#housing-type');
   const housePrice = document.querySelector('#housing-price');
