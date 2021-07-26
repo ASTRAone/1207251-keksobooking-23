@@ -1,4 +1,4 @@
-'use strict';
+
 
 const ROOMS_CAPACITY = {
   1: [1],
@@ -16,43 +16,43 @@ const MIN_PRICES = {
 };
 
 // Выбор жилья
-document.getElementById("room_number").addEventListener("click", (evt) => {
+document.getElementById('room_number').addEventListener('click', (evt) => {
   const capacity = ROOMS_CAPACITY[evt.target.value];
-  const options = document.querySelectorAll("#capacity option");
+  const options = document.querySelectorAll('#capacity option');
 
   // Отключаем все опции
-  options.forEach(function (item, i) {
-    document.querySelector(".capacity" + i).disabled = true;
-    document.querySelector(".capacity" + i).selected = false;
+  options.forEach((item, i) => {
+    document.querySelector(`.capacity${  i}`).disabled = true;
+    document.querySelector(`.capacity${  i}`).selected = false;
   });
 
   // Первое подходящее значение помечаем как выделенное
-  document.querySelector(".capacity" + capacity[0]).selected = true;
+  document.querySelector(`.capacity${  capacity[0]}`).selected = true;
 
   // Включаем только подходящие опции
-  capacity.forEach(function (item, i) {
-    document.querySelector(".capacity" + capacity[i]).disabled = false;
+  capacity.forEach((item, i) => {
+    document.querySelector(`.capacity${  capacity[i]}`).disabled = false;
   });
 });
 
 // Смена типа жилья
-document.querySelector("#type").addEventListener("change", (e) => {
-  const price = document.querySelector("#price");
+document.querySelector('#type').addEventListener('change', (e) => {
+  const price = document.querySelector('#price');
   const minPrice = MIN_PRICES[e.target.value];
 
-  price.setAttribute("placeholder", minPrice);
-  price.setAttribute("min", minPrice);
+  price.setAttribute('placeholder', minPrice);
+  price.setAttribute('min', minPrice);
 });
 
 // Смена времени выезда
-document.querySelector("#timein").addEventListener("change", (e) => {
+document.querySelector('#timein').addEventListener('change', (e) => {
   const timeIn = e.target.value;
-  document.querySelector("#timeout").value = timeIn;
+  document.querySelector('#timeout').value = timeIn;
 });
 
 // Смена времени приезда
-document.querySelector("#timeout").addEventListener("change", (e) => {
+document.querySelector('#timeout').addEventListener('change', (e) => {
   const timeIn = e.target.value;
-  document.querySelector("#timein").value = timeIn;
+  document.querySelector('#timein').value = timeIn;
 });
 

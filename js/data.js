@@ -1,4 +1,4 @@
-'use strict';
+
 
 const OFFER_FEATURES = [
   'wifi', 'dishwasher', 'parking', 'washer', 'elevator', 'conditioner',
