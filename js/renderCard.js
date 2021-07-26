@@ -18,7 +18,7 @@ const renderImages = (images, card) => {
 };
 
 // Генерация типов popup__type
-const renderOfferType = {
+const TYPES = {
     flat: 'Квартира',
     bungalow: 'Бунгало',
     house: 'Дом',
@@ -49,7 +49,7 @@ export const renderCard = (obj = []) => {
     root.querySelector('.popup__title').textContent = obj.offer.title;
     root.querySelector('.popup__text--address').textContent = obj.offer.address;
     root.querySelector('.popup__text--price').textContent = `${obj.offer.price} ₽/ночь`;
-    root.querySelector('.popup__type').textContent = renderOfferType[obj.offer.type];
+    root.querySelector('.popup__type').textContent = TYPES[obj.offer.type];
         'Значение не определено';
     root.querySelector('.popup__text--capacity').textContent = 
         `${obj.offer.rooms} комнаты для ${obj.offer.guests} гостей`;
