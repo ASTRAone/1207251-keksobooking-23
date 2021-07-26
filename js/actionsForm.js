@@ -26,8 +26,8 @@ const successAction = () => {
   form.reset();
 
   document.querySelectorAll('.features__checkbox').forEach((item) => {
-      item.checked = false;
-  })
+    item.checked = false;
+  });
 };
 
 // Если произошла ошибка
@@ -55,7 +55,7 @@ const rejectAction = () => {
 
 // Отправка формы
 document.querySelector('.ad-form').addEventListener('submit', (evt) => {
-    evt.preventDefault();
+  evt.preventDefault();
 
   const form = document.querySelector('.ad-form');
   const formData = new FormData(form);

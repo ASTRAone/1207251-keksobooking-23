@@ -1,5 +1,3 @@
-
-
 import { mapsChanges } from './map.js';
 import { changeFilterMap } from './filterMap.js';
 

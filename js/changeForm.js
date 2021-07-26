@@ -1,5 +1,3 @@
-
-
 const ROOMS_CAPACITY = {
   1: [1],
   2: [2, 1],
@@ -21,38 +19,37 @@ document.getElementById('room_number').addEventListener('click', (evt) => {
   const options = document.querySelectorAll('#capacity option');
 
   // Отключаем все опции
-  options.forEach((item, i) => {
-    document.querySelector(`.capacity${  i}`).disabled = true;
-    document.querySelector(`.capacity${  i}`).selected = false;
+  options.forEach((item, counter) => {
+    document.querySelector(`.capacity${  counter}`).disabled = true;
+    document.querySelector(`.capacity${  counter}`).selected = false;
   });
 
   // Первое подходящее значение помечаем как выделенное
   document.querySelector(`.capacity${  capacity[0]}`).selected = true;
 
   // Включаем только подходящие опции
-  capacity.forEach((item, i) => {
-    document.querySelector(`.capacity${  capacity[i]}`).disabled = false;
+  capacity.forEach((item, counter) => {
+    document.querySelector(`.capacity${  capacity[counter]}`).disabled = false;
   });
 });
 
 // Смена типа жилья
-document.querySelector('#type').addEventListener('change', (e) => {
+document.querySelector('#type').addEventListener('change', (evt) => {
   const price = document.querySelector('#price');
-  const minPrice = MIN_PRICES[e.target.value];
+  const minPrice = MIN_PRICES[evt.target.value];
 
   price.setAttribute('placeholder', minPrice);
   price.setAttribute('min', minPrice);
 });
 
 // Смена времени выезда
-document.querySelector('#timein').addEventListener('change', (e) => {
-  const timeIn = e.target.value;
+document.querySelector('#timein').addEventListener('change', (evt) => {
+  const timeIn = evt.target.value;
   document.querySelector('#timeout').value = timeIn;
 });
 
 // Смена времени приезда
-document.querySelector('#timeout').addEventListener('change', (e) => {
-  const timeIn = e.target.value;
+document.querySelector('#timeout').addEventListener('change', (evt) => {
+  const timeIn = evt.target.value;
   document.querySelector('#timein').value = timeIn;
 });
-

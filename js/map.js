@@ -77,7 +77,6 @@ export const refreshPoint = () => {
 };
 
 
-
 // Создание меток с объявлениями
 const createPoints = (filter = false, arr) => {
   if (Array.isArray(arr)) {
