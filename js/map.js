@@ -153,6 +153,10 @@ export const refreshMap = () => {
   10);
 };
 
+export const reloadData = () => {
+  createPoints(true, (filterMap(stateArray)));
+};
+
 document.querySelector('.map__filters').addEventListener('change', () => {
   createPoints(true, (filterMap(stateArray)));
 });

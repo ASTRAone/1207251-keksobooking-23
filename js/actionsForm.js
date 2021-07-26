@@ -1,4 +1,4 @@
-import { refreshPoint, refreshMap } from './map.js';
+import { refreshPoint, refreshMap, reloadData } from './map.js';
 
 // Если все прошло успешно
 const successAction = () => {
@@ -125,6 +125,9 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
 
   // Возврщает масштаб карты
   refreshMap();
+
+  // Перерисовывает метки
+  reloadData();
 
   // Убираем выделение features
   document.querySelectorAll('.features__checkbox').forEach((item) => {
