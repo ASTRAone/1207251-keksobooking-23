@@ -1,4 +1,15 @@
+'use strict';
+
 import { renderCard } from './renderCard.js';
+
+
+
+// Координаты метки и карты
+const LAT = 35.681700;
+const LNG = 139.75388;
+
+// Стейт данных
+let stateArray = [];
 
 // неактивная страница
 const transferInactivePage = () => {
@@ -37,10 +48,7 @@ const icon = L.icon({
   iconAnchor: [26, 52],
 });
 
-const LAT = 35.681700;
-const LNG = 139.75388;
-
-const marker = L.marker(
+const MARKER = L.marker(
   {
     lat: LAT,
     lng: LNG,
@@ -54,24 +62,24 @@ const marker = L.marker(
 // Создание главной метки
 const createChapterPoint = (map) => {
 
-  marker.addTo(map);
+  MARKER.addTo(map);
 
-  marker.on("moveend", (e) => {
-    const newX = e.target.getLatLng().lat.toFixed(5);
-    const newY = e.target.getLatLng().lng.toFixed(5);
+  MARKER.on("moveend", (e) => {
+    const NEWX = e.target.getLatLng().lat.toFixed(5);
+    const NEWY = e.target.getLatLng().lng.toFixed(5);
 
-    document.querySelector("#address").value = `${newX}, ${newY}`;
+    document.querySelector("#address").value = `${NEWX}, ${NEWY}`;
   });
 };
 
 // Возращает главную метку на первоначальную позицию
 export const refreshPoint = () => {
-  marker.setLatLng([LAT, LNG])
+  MARKER.setLatLng([LAT, LNG])
 };
 
 // Возращает карту на первоначальную позицию
 export const refreshMap = () => {
-  map.setView({
+  MAP.setView({
     lat: LAT,
     lng: LNG,
   },
@@ -112,41 +120,39 @@ const createPoints = (filter = false, arr) => {
   }
 };
 
-// Стейт данных
-let stateArray = [];
-
 // Работа с картой
 export const mapsChanges = (points) => {
   stateArray = points;
 
-  createChapterPoint(map, LAT, LNG);
+  createChapterPoint(MAP, LAT, LNG);
   createPoints(false, stateArray);
 };
 
-  transferInactivePage();
-  const map = L.map("map-canvas")
-  // Если загрузилась карта, то форама становится активной
-  .on("load", () => {
-    transferActivePage();
-    document.querySelector("#address").value = `${LAT}, ${LNG}`;
-  })
-  .setView(
-    {
-      lat: LAT,
-      lng: LNG,
-    },
-    10
-  );
+transferInactivePage();
+const MAP = L.map("map-canvas")
+// Если загрузилась карта, то форама становится активной
+.on("load", () => {
+  transferActivePage();
+  document.querySelector("#address").value = `${LAT}, ${LNG}`;
+})
+.setView(
+  {
+    lat: LAT,
+    lng: LNG,
+  },
+  10
+);
 
-  localStorage.setItem('x', LAT);
-  localStorage.setItem('y', LNG);
+localStorage.setItem('x', LAT);
+localStorage.setItem('y', LNG);
 
-  L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution:
-    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-  }).addTo(map);
+L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+attribution:
+  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+}).addTo(MAP);
 
-  const markerGroup = L.layerGroup().addTo(map);
+// Второй слой для отрисовки points
+const markerGroup = L.layerGroup().addTo(MAP);
 
 // Активная/неактивная форма
 export const changeFilterMap = (state) => {
@@ -239,8 +245,6 @@ const filterMap = (arr) => {
       })
     });
   }
-
-  console.log('Отфильтрованный массив', filterData);
 
   return filterData;
 };

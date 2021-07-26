@@ -1,3 +1,5 @@
+'use strict';
+
 import { changeFilterMap, mapsChanges } from './map.js';
 
 const renderData = (data) => {
@@ -26,7 +28,6 @@ const renderDataFailed = (status) => {
         }
     });
 
-    // mapsChanges();
     changeFilterMap(false);
 };
 
@@ -39,7 +40,7 @@ export const dataActionsPost = () => {
                     .json()
                     .then((resolve) => {
                         const values = resolve.length <= 10 ? resolve : resolve.splice(0, 10);
-                        renderData(values)
+                        renderData(values);
                     })
             } else {
                 renderDataFailed(resolve.status);

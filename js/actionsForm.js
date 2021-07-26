@@ -1,3 +1,5 @@
+'use strict';
+
 import { refreshPoint, refreshMap } from './map.js';
 
 // Если все прошло успешно
@@ -80,7 +82,9 @@ document.querySelector('#avatar').addEventListener('change', (e) => {
 
     if (file) {
         reader.readAsDataURL(file);
-    } 
+    }   else {
+        preview.src = '';
+    }
 });
 
 // Загрузка изображения жилья
@@ -95,11 +99,13 @@ document.querySelector('#images').addEventListener('change', (e) => {
 
     if (file) {
         reader.readAsDataURL(file);
-    } 
+    }   else {
+        preview.style.backgroundImage = '';
+    }
 });
 
 // Сброс формы
-document.querySelector('.ad-form__reset').addEventListener('click', () => {
+document.querySelector('.ad-form__reset').addEventListener('click', (e) => {
     // Сброс формы объявления
     const form = document.querySelector('.ad-form');
     form.reset();
@@ -129,4 +135,10 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
     document.querySelectorAll('.map__checkbox').forEach((item) => {
         item.checked = false;
     });
+
+    // Возвращаем аватарку в исходное состояние
+    document.querySelector('.ad-form-header__preview_avatar').src = 'img/muffin-grey.svg';
+
+    // Возвращаем фоновое изображение в исходное состояние
+    document.querySelector('.ad-form__photo').style.backgroundImage = '';
 });

@@ -1,3 +1,5 @@
+'use strict';
+
 const ROOMS_CAPACITY = {
   1: [1],
   2: [2, 1],

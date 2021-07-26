@@ -1,3 +1,5 @@
+'use strict';
+
 // Это для того, чтобы можно было использовать console для вывода инфы
 /* eslint-disable no-console */
 import { randomNumber, randomFloatNumber } from './util.js';
