@@ -25,7 +25,7 @@ document.getElementById('room_number').addEventListener('click', (evt) => {
   });
 
   // Первое подходящее значение помечаем как выделенное
-  document.querySelector(`.capacity${  capacity[0]}`).selected = true;
+  document.querySelector(`.capacity${capacity[0]}`).selected = true;
 
   // Включаем только подходящие опции
   capacity.forEach((item, counter) => {

@@ -149,4 +149,10 @@ document.querySelector('.ad-form__reset').addEventListener('click', () => {
 
   // Возвращаем фоновое изображение в исходное состояние
   document.querySelector('.ad-form__photo').style.backgroundImage = '';
+
+  // Делаем тип жилья и цену в первоначальный вид
+  document.querySelector('.capacity0').selected = true;
+  const price = document.querySelector('#price');
+  price.placeholder = 0;
+  price.min = 0;
 });

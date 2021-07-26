@@ -1,8 +1,6 @@
 import { mapsChanges } from './map.js';
 import { changeFilterMap } from './filterMap.js';
 
-let values = [];
-
 const renderData = (data) => {
   mapsChanges(data);
   changeFilterMap(true);
@@ -41,8 +39,7 @@ export const dataActionsPost = () => {
     (resolve) => {
       if (resolve.ok) {
         resolve.json().then((data) => {
-          values = data.length <= 10 ? data : data.splice(0, 10);
-          renderData(values);
+          renderData(data);
         });
       } else {
         renderDataFailed(resolve.status);
