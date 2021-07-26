@@ -1,7 +1,7 @@
 import { refreshPoint, refreshMap, reloadData } from './map.js';
 
 // Если все прошло успешно
-const successAction = () => {
+const actionSuccess = () => {
   const successAd = document
     .querySelector('#success')
     .content.querySelector('.success')
@@ -66,7 +66,7 @@ document.querySelector('.ad-form').addEventListener('submit', (evt) => {
   }).then((response) => {
     if (response.ok) {
       response.json().then(() => {
-        successAction();
+        actionSuccess();
       });
     } else {
       rejectAction();

@@ -1,9 +1,9 @@
 import { mapsChanges } from './map.js';
-import { changeFilterMap } from './filterMap.js';
+import { transitionFilterMap } from './filterMap.js';
 
 const renderData = (data) => {
   mapsChanges(data);
-  changeFilterMap(true);
+  transitionFilterMap(true);
 };
 
 const renderDataFailed = (status) => {
@@ -31,10 +31,10 @@ const renderDataFailed = (status) => {
     }
   });
 
-  changeFilterMap(false);
+  transitionFilterMap(false);
 };
 
-export const dataActionsPost = () => {
+export const actionsDataPost = () => {
   fetch('https://23.javascript.pages.academy/keksobooking/data/').then(
     (resolve) => {
       if (resolve.ok) {

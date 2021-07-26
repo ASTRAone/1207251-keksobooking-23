@@ -1,5 +1,5 @@
 import { renderCard } from './renderCard.js';
-import { filterMap } from './filterMap.js';
+import { changeFilterMap } from './filterMap.js';
 
 // Координаты метки и карты
 const LAT = 35.681700;
@@ -154,11 +154,12 @@ export const refreshMap = () => {
   10);
 };
 
+// Переотрисовка меток при сбросе формы
 export const reloadData = () => {
-  createPoints(true, (filterMap(stateArray)));
+  createPoints(true, changeFilterMap(stateArray));
 };
 
 document.querySelector('.map__filters').addEventListener('change', () => {
-  createPoints(true, (filterMap(stateArray)));
+  createPoints(true, changeFilterMap(stateArray));
 });
 

@@ -11,7 +11,7 @@ const houseRooms = document.querySelector('#housing-rooms');
 const houseGuests = document.querySelector('#housing-guests');
 
 // Активная/неактивная форма
-export const changeFilterMap = (state) => {
+export const transitionFilterMap = (state) => {
   if (state === false) {
     selectsTypes.forEach((item) => {
       item.disabled = true;
@@ -34,7 +34,7 @@ export const changeFilterMap = (state) => {
 };
 
 // Изменения фильтра карты
-export const filterMap = (arr) => {
+export const changeFilterMap = (arr) => {
   const features = [];
   let filterData = arr.slice();
 
@@ -65,18 +65,24 @@ export const filterMap = (arr) => {
 
   // Фильтрация по количеству комнат
   if (houseRooms.value !== 'any') {
-    filterData = filterData.filter((item) => item.offer.rooms === houseRooms.value);
+    const amountRooms = Number(houseRooms.value);
+    filterData = filterData.filter((item) => item.offer.rooms === amountRooms);
   }
 
   // Фильтрация по количеству гостей
   if (houseGuests.value !== 'any') {
-    filterData = filterData.filter((item) => item.offer.guests === houseGuests.value);
+    const amountGuests = Number(houseGuests.value);
+    filterData = filterData.filter((item) => item.offer.guests === amountGuests);
   }
 
   // Фильтрация по удобствам
   if (features.length !== 0) {
     features.forEach((feature) => {
-      filterData = filterData.filter((item) => item.offer.features.includes(feature));
+      filterData = filterData.filter((item) => {
+        if (item.offer.features) {
+          return item.offer.features.includes(feature);
+        }
+      });
     });
   }
 
