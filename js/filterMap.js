@@ -46,6 +46,8 @@ export const changeFilterMap = (arr) => {
   // Фильтрация по типу жилья
   if (houseType.value !== 'any') {
     filterData = filterData.filter((item) => item.offer.type === houseType.value);
+  } else if (houseType.value === 'any') {
+    filterData = filterData.filter((item) => item.offer.type);
   }
 
   // Фильтрация по цене
@@ -61,18 +63,24 @@ export const changeFilterMap = (arr) => {
 
       return price === housePrice.value;
     });
+  } else if (housePrice.value === 'any') {
+    filterData = filterData.filter((item) => item.offer.price);
   }
 
   // Фильтрация по количеству комнат
   if (houseRooms.value !== 'any') {
     const amountRooms = Number(houseRooms.value);
     filterData = filterData.filter((item) => item.offer.rooms === amountRooms);
+  } else if (houseRooms.value === 'any') {
+    filterData = filterData.filter((item) => item.offer.rooms);
   }
 
   // Фильтрация по количеству гостей
   if (houseGuests.value !== 'any') {
     const amountGuests = Number(houseGuests.value);
     filterData = filterData.filter((item) => item.offer.guests === amountGuests);
+  } else if (houseGuests.value === 'any') {
+    filterData = filterData.filter((item) => item.offer.guests);
   }
 
   // Фильтрация по удобствам
