@@ -1,30 +1,35 @@
 const LOW_PRICE = 10000;
 const HIGH_PRICE = 50000;
 
+const formFilter = document.querySelector('.map__filters');
+const selectsTypes = document.querySelectorAll('.map__filter');
+const featuresItems = document.querySelectorAll('.map__checkbox');
+
+const houseType = document.querySelector('#housing-type');
+const housePrice = document.querySelector('#housing-price');
+const houseRooms = document.querySelector('#housing-rooms');
+const houseGuests = document.querySelector('#housing-guests');
+
 // Активная/неактивная форма
 export const changeFilterMap = (state) => {
-  const form = document.querySelector('.map__filters');
-  const selects = document.querySelectorAll('.map__filter');
-  const features = document.querySelectorAll('.map__checkbox');
-
   if (state === false) {
-    selects.forEach((item) => {
+    selectsTypes.forEach((item) => {
       item.disabled = true;
     });
 
-    features.forEach((item) => {
+    featuresItems.forEach((item) => {
       item.disabled = true;
     });
   } else {
-    selects.forEach((item) => {
+    selectsTypes.forEach((item) => {
       item.disabled = false;
     });
 
-    features.forEach((item) => {
+    featuresItems.forEach((item) => {
       item.disabled = false;
     });
 
-    form.reset();
+    formFilter.reset();
   }
 };
 
@@ -32,11 +37,6 @@ export const changeFilterMap = (state) => {
 export const filterMap = (arr) => {
   const features = [];
   let filterData = arr.slice();
-
-  const houseType = document.querySelector('#housing-type');
-  const housePrice = document.querySelector('#housing-price');
-  const houseRooms = document.querySelector('#housing-rooms');
-  const houseGuests = document.querySelector('#housing-guests');
 
   // Получаем удобства
   document.querySelectorAll('.map__checkbox:checked').forEach((item) => {
