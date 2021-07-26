@@ -1,6 +1,7 @@
 'use strict';
 
-import { changeFilterMap, mapsChanges } from './map.js';
+import { mapsChanges } from './map.js';
+import { changeFilterMap } from './filterMap.js';
 
 const renderData = (data) => {
     mapsChanges(data);
