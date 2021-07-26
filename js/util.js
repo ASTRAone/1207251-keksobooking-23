@@ -1,5 +1,5 @@
 // Рандомное число
-export const randomNumber = (min, max) => {
+const randomNumber = (min, max) => {
   if (min >= 0 && max >= 0) {
     const num = Math.floor(Math.random() * (max - min + 1) + min);
 
@@ -9,7 +9,7 @@ export const randomNumber = (min, max) => {
 };
 
 // Рандомное число с плавающей точкой
-export const randomFloatNumber = (min, max, point = 6) => {
+const randomFloatNumber = (min, max, point = 6) => {
   if (min >= 0 || max >= 0) {
     const num = parseFloat((Math.random() * (max - min) + min).toFixed(point));
 
@@ -17,3 +17,7 @@ export const randomFloatNumber = (min, max, point = 6) => {
   }
   return 0;
 };
+
+randomNumber(2, 10);
+
+randomFloatNumber(1, 100, 2);

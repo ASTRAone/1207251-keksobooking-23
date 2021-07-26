@@ -76,7 +76,6 @@ export const refreshPoint = () => {
   MARKER.setLatLng([LAT, LNG]);
 };
 
-
 // Создание меток с объявлениями
 const createPoints = (filter = false, arr) => {
   if (Array.isArray(arr)) {
@@ -85,8 +84,8 @@ const createPoints = (filter = false, arr) => {
     }
 
     arr.forEach((item) => {
-      const x = item.location.lat;
-      const y = item.location.lng;
+      const lat = item.location.lat;
+      const lng = item.location.lng;
 
       const icon = L.icon({
         iconUrl: '../img/pin.svg',
@@ -96,8 +95,8 @@ const createPoints = (filter = false, arr) => {
 
       const marker = L.marker(
         {
-          lat: x,
-          lng: y,
+          lat: lat,
+          lng: lng,
         },
         {
           icon,
